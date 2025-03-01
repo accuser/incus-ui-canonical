@@ -1,22 +1,23 @@
-import { FC, MouseEvent, useEffect, useState } from "react";
 import { Button, Icon, SideNavigationItem } from "@canonical/react-components";
-import { useAuth } from "context/auth";
 import classnames from "classnames";
-import Logo from "./Logo";
-import ProjectSelector from "pages/projects/ProjectSelector";
-import { getElementAbsoluteHeight, isWidthBelow, logout } from "util/helpers";
-import { useProject } from "context/project";
-import { useMenuCollapsed } from "context/menuCollapsed";
-import { useDocs } from "context/useDocs";
 import NavLink from "components/NavLink";
-import { useSupportedFeatures } from "context/useSupportedFeatures";
-import NavAccordion, { AccordionNavMenu } from "./NavAccordion";
-import useEventListener from "util/useEventListener";
-import { enablePermissionsFeature } from "util/permissions";
-import { Location, useLocation } from "react-router-dom";
+import { useAuth } from "context/auth";
+import { useMenuCollapsed } from "context/menuCollapsed";
+import { useProject } from "context/project";
+import { useDocs } from "context/useDocs";
 import { useLoggedInUser } from "context/useLoggedInUser";
 import { useSettings } from "context/useSettings";
+import { useSupportedFeatures } from "context/useSupportedFeatures";
+import ProjectSelector from "pages/projects/ProjectSelector";
+import { FC, MouseEvent, useEffect, useState } from "react";
+import { Location, useLocation } from "react-router-dom";
+import { getElementAbsoluteHeight, isWidthBelow, logout } from "util/helpers";
+import { enablePermissionsFeature } from "util/permissions";
 import { isClusteredServer } from "util/settings";
+import useEventListener from "util/useEventListener";
+import Logo from "./Logo";
+import NavAccordion, { AccordionNavMenu } from "./NavAccordion";
+import ThemeSwitch from "./ThemeSwitch";
 
 const isSmallScreen = () => isWidthBelow(620);
 
@@ -340,22 +341,22 @@ const Navigation: FC = () => {
                         </NavLink>
                       </SideNavigationItem>
                       {isClustered && (
-                      <>
-                      <hr className="is-dark navigation-hr" />
-                      <SideNavigationItem>
-                        <NavLink
-                          to="/ui/cluster"
-                          title="Cluster"
-                          onClick={softToggleMenu}
-                        >
-                          <Icon
-                            className="is-light p-side-navigation__icon"
-                            name="cluster-host"
-                          />{" "}
-                          Cluster
-                        </NavLink>
-                      </SideNavigationItem>
-                      </>
+                        <>
+                          <hr className="is-dark navigation-hr" />
+                          <SideNavigationItem>
+                            <NavLink
+                              to="/ui/cluster"
+                              title="Cluster"
+                              onClick={softToggleMenu}
+                            >
+                              <Icon
+                                className="is-light p-side-navigation__icon"
+                                name="cluster-host"
+                              />{" "}
+                              Cluster
+                            </NavLink>
+                          </SideNavigationItem>
+                        </>
                       )}
                       <SideNavigationItem>
                         <NavLink
@@ -501,7 +502,7 @@ const Navigation: FC = () => {
                   <SideNavigationItem>
                     <a
                       className="p-side-navigation__link"
-                      href={docBaseLink+"/"}
+                      href={docBaseLink + "/"}
                       target="_blank"
                       rel="noopener noreferrer"
                       title="Documentation"
@@ -558,6 +559,9 @@ const Navigation: FC = () => {
                       </a>
                     </SideNavigationItem>
                   )}
+                  <SideNavigationItem>
+                    <ThemeSwitch />
+                  </SideNavigationItem>
                 </ul>
                 <div
                   className={classnames("sidenav-toggle-wrapper", {
